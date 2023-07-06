@@ -4,9 +4,9 @@ export type StyledListProps = {
   open: boolean;
 };
 
-export type DrawerListContainerProps={
-  open?: boolean
-}
+export type DrawerListContainerProps = {
+  open?: boolean;
+};
 export type DrawerListItem = {
   label: string;
   icon: ReactNode;
@@ -18,5 +18,5 @@ export type DrawerListProps = {
 };
 
 export type DrawerProps = {
-  navList: DrawerListItem[];
+  navList?: DrawerListItem[];
 };

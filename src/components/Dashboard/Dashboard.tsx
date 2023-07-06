@@ -7,8 +7,10 @@ export const Dashboard = () => {
     <Box
       sx={{ display: "flex", flexDirection: "row"}}>
       <Drawer/>
+      <Box>
       <Toggle />
       <p>hello</p>
+      </Box>
     </Box>
   );
 };

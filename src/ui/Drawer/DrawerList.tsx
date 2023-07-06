@@ -8,10 +8,9 @@ import { DrawerListProps } from "..";
 
 export const DrawerList = ({ open, listItems }: DrawerListProps) => {
   return (
-
     <List>
       {listItems.map(({ icon, label }) => (
-        <StyledListItem key={label} >
+        <StyledListItem key={label}>
           <StyledListItemButton open={open}>
             {icon}
             <StyledListItemText open={open} primary={label} />
@@ -19,6 +18,5 @@ export const DrawerList = ({ open, listItems }: DrawerListProps) => {
         </StyledListItem>
       ))}
     </List>
-    
   );
 };

@@ -66,7 +66,7 @@ export const Drawer = ({ navList = defaultNavList }: DrawerProps) => {
               <CloseIcon />
             </IconButton>
           </DrawerHeaderOpened>
-          <DrawerListContainerOpen >
+          <DrawerListContainerOpen>
             <DrawerList listItems={navList} open={isOpen} />
             <DrawerList listItems={footerList} open={isOpen} />
           </DrawerListContainerOpen>

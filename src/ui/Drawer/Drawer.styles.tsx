@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { CSSObject, Theme, styled } from "@mui/material/styles";
 import { StyledListProps } from "..";
-import darkMap from "../../../public/wordMap_dark.svg"
-import lightMap from "../../../public/wordMap_light.svg"
+import darkMap from "../../../public/wordMap_dark.svg";
+import lightMap from "../../../public/wordMap_light.svg";
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -68,7 +68,7 @@ export const DrawerHeaderClosed = styled("div")(() => ({
 export const DrawerHeaderOpened = styled("div")(() => ({
   height: "3.5rem",
   display: "flex",
-  justifyContent: "space-between",  
+  justifyContent: "space-between",
 }));
 
 export const DrawerHeaderTextContainer = styled("div")(() => ({
@@ -86,14 +86,14 @@ export const DrawerHeaderText = styled(Typography)(({ theme }) => ({
 export const StyledListItem = styled(ListItem)(({ theme }) => ({
   height: "3rem",
   display: "block",
-  alignContent:"center",
+  alignContent: "center",
   padding: "0",
   ["& .MuiTypography-root"]: {
     fontWeight: theme.typography.fontWeightLight,
   },
   ":hover": {
     ["& .MuiTypography-root"]: {
-          fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightBold,
     },
     ["& .MuiSvgIcon-root"]: {
       color: theme.palette.info.light,
@@ -106,15 +106,13 @@ export const StyledListItem = styled(ListItem)(({ theme }) => ({
 
 export const StyledListItemButton = styled(ListItemButton)(
   ({ open }: StyledListProps) => ({
-     justifyContent: open ? "initial" : "center",
+    justifyContent: open ? "initial" : "center",
   })
 );
 
-export const StyledListItemIcon = styled(ListItemIcon)(
-  () => ({
-    justifyContent: "center",
-  })
-);
+export const StyledListItemIcon = styled(ListItemIcon)(() => ({
+  justifyContent: "center",
+}));
 
 export const StyledListItemText = styled(ListItemText)(
   ({ open }: StyledListProps) => ({
@@ -123,22 +121,21 @@ export const StyledListItemText = styled(ListItemText)(
   })
 );
 
-export const DrawerListContainerOpen = styled(Box)(({theme})=>({
+export const DrawerListContainerOpen = styled(Box)(({ theme }) => ({
   display: "flex",
-  flexDirection:"column",
-  justifyContent:"space-between",
-  height:"100%",
-  backgroundImage: `url(${theme.palette.mode === 'dark' ? darkMap : lightMap})` ,
+  flexDirection: "column",
+  justifyContent: "space-between",
+  height: "100%",
+  backgroundImage: `url(${theme.palette.mode === "dark" ? darkMap : lightMap})`,
   backgroundRepeat: "no-repeat",
-  backgroundPositionY:"110%",
+  backgroundPositionY: "110%",
   backgroundPositionX: "0.5rem",
   backgroundSize: "45rem 30rem",
-}))
+}));
 
-export const DrawerListContainerClose = styled(Box)(()=>({
+export const DrawerListContainerClose = styled(Box)(() => ({
   display: "flex",
-  flexDirection:"column",
-  justifyContent:"space-between",
-  height:"100%",
-}))
-
+  flexDirection: "column",
+  justifyContent: "space-between",
+  height: "100%",
+}));
