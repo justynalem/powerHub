@@ -7,9 +7,16 @@ export const theme = createTheme({
       main: colorVar.lightGreen,
     },
   },
-});
+ });
 
 export const getDesignTokens = (mode: PaletteMode) => ({
+  typography:{
+    fontSize: 16,
+    fontFamily: "Geologica",
+    fontWeightLight: 100,
+    fontWeightRegular: 300,
+    fontWeightBold: 400,
+  },
   palette: {
     mode,
     ...(mode === "light"
@@ -25,6 +32,10 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             light: colorVar.lightGreen,
             dark: colorVar.darkGreen,
             contrastText: colorVar.textOnLightContrast,
+          },
+          info:{
+            main: colorVar.infoMain,
+            light: colorVar.infoLight,
           },
           background: {
             default: colorVar.bgLight,
@@ -43,6 +54,10 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             light: colorVar.darkGreen,
             dark: colorVar.darkGreen,
             contrastText: colorVar.textOnDarkContrast,
+          },
+          info:{
+            main: colorVar.infoMain,
+            light: colorVar.infoLight,
           },
           background: {
             default: colorVar.bgDark,
