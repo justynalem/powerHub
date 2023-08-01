@@ -19,4 +19,6 @@ export type DrawerListProps = {
 
 export type DrawerProps = {
   navList?: DrawerListItem[];
+  onOpenChange?: (openState: boolean) => void
 };
+

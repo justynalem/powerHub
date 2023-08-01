@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DrawerHeaderOpened,
   DrawerHeaderClosed,
@@ -18,6 +18,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { DrawerProps, IconButton } from "..";
 import { DrawerList } from "./DrawerList";
+import { Toggle } from "../../components";
 
 const defaultNavList = [
   { label: "Home", icon: <HomeIcon /> },
@@ -27,10 +28,20 @@ const defaultNavList = [
   { label: "Settings", icon: <SettingsIcon /> },
 ];
 
-const footerList = [{ label: "Log out", icon: <LogoutIcon /> }];
+const footerList = [
+  { label: "Log out", icon: <LogoutIcon /> },
+];
 
-export const Drawer = ({ navList = defaultNavList }: DrawerProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const MOBILE_VIEW = window.innerWidth < 468;
+
+export const Drawer = ({ navList = defaultNavList, onOpenChange }: DrawerProps) => {
+  const [isOpen, setIsOpen] = useState(!MOBILE_VIEW);
+
+  useEffect(()=>{
+    if(onOpenChange) {
+      onOpenChange(isOpen)
+    }
+  }, [isOpen, onOpenChange])
 
   const handleDrawerOpen = () => setIsOpen(true);
   const handleDrawerClose = () => setIsOpen(false);
@@ -46,6 +57,7 @@ export const Drawer = ({ navList = defaultNavList }: DrawerProps) => {
           </DrawerHeaderClosed>
           <DrawerListContainerClose>
             <DrawerList listItems={navList} open={isOpen} />
+               <Toggle/>
             <DrawerList listItems={footerList} open={isOpen} />
           </DrawerListContainerClose>
         </>
@@ -68,6 +80,7 @@ export const Drawer = ({ navList = defaultNavList }: DrawerProps) => {
           </DrawerHeaderOpened>
           <DrawerListContainerOpen>
             <DrawerList listItems={navList} open={isOpen} />
+            <Toggle/>
             <DrawerList listItems={footerList} open={isOpen} />
           </DrawerListContainerOpen>
         </>
