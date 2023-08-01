@@ -1,5 +1,3 @@
-import { theme } from "./theme";
-
 export const colorVar: Record<string, string> = {
   lightGreen: "#1DBE00",
   mediumGreen: "#0A5901",

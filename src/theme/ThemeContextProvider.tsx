@@ -1,5 +1,5 @@
 import { Theme, createTheme } from "@mui/material";
-import { ReactNode, createContext, useContext } from "react";
+import { ReactNode, createContext } from "react";
 import { useColorTheme } from ".";
 
 type ThemeContextType = {
@@ -27,6 +27,3 @@ export const ThemeContextProvider = ({
   );
 };
 
-export const useThemeContext = () => {
-  return useContext(ThemeContext);
-};
