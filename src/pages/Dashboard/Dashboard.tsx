@@ -1,6 +1,5 @@
-import { Map } from "../../components";
-import { Drawer } from "../../ui";
-import { StationContainer } from "../../ui/StationBox/StationBoxContainer";
+import { Map, Slider } from "../../components";
+import { Drawer, StationBox } from "../../ui";
 import { useState } from "react";
 import { drawerWidth } from "../../theme";
 import {
@@ -9,6 +8,10 @@ import {
   MapContainer,
   SliderContainer,
 } from "./Dashboard.styles";
+
+const fakeStations = Array.from({
+  length: 8
+});
 
 export const Dashboard = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -31,7 +34,7 @@ export const Dashboard = () => {
             padding: "16px",
             transform: isDrawerOpened ? `translateX(${drawerWidth})` : "translateX(65px)",
           }}>
-          <StationContainer />
+          <Slider spaceBetween={0} slidesPerView={5}>{fakeStations.map(() => <StationBox />)}</Slider>
         </SliderContainer>
       </MainContainer>
     </DashboardContainer>
