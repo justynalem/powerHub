@@ -27,7 +27,8 @@ export const Dashboard = () => {
         <SliderContainer
           sx={{
             width: isDrawerOpened ? `calc(100% - ${drawerWidth})` : "calc(100% - 65px)",
-            backgroundColor: "black",
+            backdropFilter: "blur(20px)",
+            padding: "16px",
             transform: isDrawerOpened ? `translateX(${drawerWidth})` : "translateX(65px)",
           }}>
           <StationContainer />
