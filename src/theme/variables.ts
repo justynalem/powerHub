@@ -1,4 +1,4 @@
-
+import { theme } from "./theme";
 
 export const colorVar: Record<string, string> = {
   lightGreen: "#1DBE00",
@@ -11,5 +11,7 @@ export const colorVar: Record<string, string> = {
   bgLight: "#d3d3d3",
   bgDark: "#212121",
   paperLight: "#adadad",
-  paperDark: "#2D2D2D"
+  paperDark: "#2D2D2D",
 };
+
+export const drawerWidth = "15rem";

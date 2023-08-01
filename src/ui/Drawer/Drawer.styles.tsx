@@ -11,6 +11,7 @@ import { CSSObject, Theme, styled } from "@mui/material/styles";
 import { StyledListProps } from "..";
 import darkMap from "../../../public/wordMap_dark.svg";
 import lightMap from "../../../public/wordMap_light.svg";
+import { drawerWidth } from "../../theme";
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -38,8 +39,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
-
-const drawerWidth = "15rem";
 
 export const StyledDrawer = styled(Drawer)(({ theme, open }) => ({
   backgroundColor: theme.palette.background.default,
