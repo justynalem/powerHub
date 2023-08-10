@@ -3,7 +3,7 @@ import { StyledIconButton } from "./Icons.styles";
 
 type IconButtonProps = {
   children: ReactNode;
-  onClick: VoidFunction
+  onClick: VoidFunction;
 };
 
 export const IconButton = ({ children, onClick }: IconButtonProps) => {

@@ -13,3 +13,4 @@ export const colorVar: Record<string, string> = {
 };
 
 export const drawerWidth = "15rem";
+export const closedDrawerWidth = "4.5rem";

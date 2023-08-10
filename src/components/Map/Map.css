@@ -1,3 +1,16 @@
 /* .leaflet-container{
   height: 100vh;
 } */
+
+.cluster-icon {
+  background-color: #39f7f7;
+  height: 2em;
+  width: 2em;
+  color: #6458fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  box-shadow: 0 0 0px 5px #6458fd;
+}
