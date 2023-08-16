@@ -42,10 +42,14 @@ interface Coordinates {
 
 export interface StationData {
   id: number;
+  name: string | undefined;
+  distanceFromUser: number | undefined;
   coordinates: Coordinates;
   address: StationAddress;
   operatingHours: OperatingHoursInDay[];
   accessibility?: string;
   points: Point[];
+  maxPower: number;
+  minPrice: number;
 }
 

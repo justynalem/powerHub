@@ -1,19 +1,54 @@
 import {
-  StationBoxRow1,
+  BottomStationContainer,
+  DetailsContainer,
+  DetailsInfo,
+  DetailsTitle,
+  NameStationContainer,
   StyledStationBox,
   StyledStationIcon,
+  TopStationContainer,
 } from "./StationBox.styles.";
 
-export const StationBox = () => {
+type StationBoxProps = {
+  name: string | undefined;
+  distance: number | undefined;
+  power: number | undefined;
+  price: number | undefined;
+  slots: number;
+};
+
+export const StationBox = ({
+  name,
+  distance,
+  slots,
+  power,
+  price,
+}: StationBoxProps) => {
   return (
     <StyledStationBox>
-      <StationBoxRow1>
+      <TopStationContainer>
         <StyledStationIcon />
-        <div>joł</div>
-      </StationBoxRow1>
-      <div>elo</div>
-      <div>elo</div>
-      <div>elo</div>
+        <DetailsContainer>
+          <DetailsTitle>Distance</DetailsTitle>
+          <DetailsInfo sx={{ fontSize: 32 }}>{distance} km</DetailsInfo>
+        </DetailsContainer>
+      </TopStationContainer>
+      <NameStationContainer title={name}>
+        {name}</NameStationContainer>
+      <BottomStationContainer>
+        <DetailsContainer>
+          <DetailsTitle>Power</DetailsTitle>
+          <DetailsInfo>{power}</DetailsInfo>
+        </DetailsContainer>
+        <DetailsContainer>
+          <DetailsTitle>price</DetailsTitle>
+          <DetailsInfo>{price === 0 ? "N/A" : `${price}`}</DetailsInfo>
+        </DetailsContainer>
+        <DetailsContainer>
+          <DetailsTitle>slots</DetailsTitle>
+          <DetailsInfo>{slots}</DetailsInfo>
+        </DetailsContainer>
+      </BottomStationContainer>
     </StyledStationBox>
   );
 };

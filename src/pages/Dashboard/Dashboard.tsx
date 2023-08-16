@@ -26,14 +26,23 @@ export const Dashboard = () => {
       <Drawer onOpenChange={onDrawerOpenChange} />
       <MainContainer>
         <MapContainer>
-          <Map markers={stations.map(({ id, coordinates }) => ({ id, coordinates: [coordinates.latitude, coordinates.longitude] }))} />
+          <Map
+            markers={stations.map(({ id, coordinates }) => ({
+              id,
+              coordinates: [coordinates.latitude, coordinates.longitude],
+            }))}
+          />
         </MapContainer>
         <SliderContainer
           sx={{
-            width: isDrawerOpened ? `calc(100% - ${drawerWidth})` : `calc(100% - ${closedDrawerWidth})`,
+            width: isDrawerOpened
+              ? `calc(100% - ${drawerWidth})`
+              : `calc(100% - ${closedDrawerWidth})`,
             backdropFilter: "blur(20px)",
             padding: "16px",
-            transform: isDrawerOpened ? `translateX(${drawerWidth})` : `translateX(${closedDrawerWidth})`,
+            transform: isDrawerOpened
+              ? `translateX(${drawerWidth})`
+              : `translateX(${closedDrawerWidth})`,
           }}>
           <Slider
             breakpoints={{
@@ -46,14 +55,22 @@ export const Dashboard = () => {
                 spaceBetween: 40,
               },
               1024: {
-                slidesPerView: 5,
-                spaceBetween: 50,
+                slidesPerView: 7,
+                spaceBetween: 8,
               },
-            }}
-
-          >{stations.map(({ id }) => <StationBox key={id} />)}</Slider>
+            }}>
+            {stations.map(({ id, name, distanceFromUser, points, maxPower, minPrice }) => (
+              <StationBox
+                key={id}
+                name={name}
+                distance={distanceFromUser}
+                slots={points.length}
+                power={maxPower}
+                price={minPrice}
+              />
+            ))}
+          </Slider>
         </SliderContainer>
-
       </MainContainer>
     </DashboardContainer>
   );

@@ -20,6 +20,7 @@ export const MapContainer = styled(Box)(() => ({
 
 export const SliderContainer = styled(Box)(({ theme }) => ({
   position: "absolute",
+  cursor: "grab",
   bottom: 0,
   zIndex: 2,
   transition: theme.transitions.create("all", {

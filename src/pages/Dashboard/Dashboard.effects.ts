@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDynamicData, getPoints, getPool, getStations } from "../../api";
 import geodist from "geodist";
 import { Point, StationData } from "./Dashboard.types";
+import { useMemo } from "react";
 
 type UseDashboardEffectsType = {
   distance: number;
@@ -28,10 +29,9 @@ export const useDashboardEffects = (
     queryFn: getStations,
   });
 
-  const stations: StationData[] = [];
-
-  if (stationsQuery.data && pointsQuery.data && poolQuery.data) {
-    const filteredStations: StationData[] = stationsQuery.data
+  const stations: StationData[] = useMemo(() => {
+    if (!stationsQuery.data || !pointsQuery.data || !poolQuery.data) return [];
+    return stationsQuery.data
       .filter(({ latitude, longitude }) => {
         const [lat, lon] = userCoordinates;
         return geodist(
@@ -41,7 +41,8 @@ export const useDashboardEffects = (
         );
       })
       .map(({ id, pool_id, latitude, longitude, location: { city } }) => {
-        const { house_number, operating_hours, postal_code, street } =
+        const [lat, lon] = userCoordinates;
+        const { house_number, operating_hours, postal_code, street, name } =
           poolQuery.data.find(({ id }) => id === pool_id) ?? {};
 
         const points: Point[] = pointsQuery.data
@@ -60,8 +61,39 @@ export const useDashboardEffects = (
               status: status ?? {},
             };
           });
-
+        const { maxPower, minPrice } = points.reduce(
+          (acc, { connectors, prices }) => {
+            const minPrice = prices.reduce((acc, { price, unit }) => {
+              if (unit !== "kWh") return acc;
+              if (acc === 0) {
+                return +price;
+              }
+              return acc < +price ? acc : +price;
+            }, 0);
+            const maxPower = connectors.reduce(
+              (acc, { power }) => (acc > power ? acc : power),
+              0
+            );
+            if (acc.maxPower < maxPower) {
+              acc.maxPower = maxPower;
+            }
+            if (acc.minPrice === 0) {
+              acc.minPrice = minPrice;
+            }
+            if (acc.minPrice > minPrice) {
+              acc.minPrice = minPrice;
+            }
+            return acc;
+          },
+          { maxPower: 0, minPrice: 0 }
+        );
         return {
+          distanceFromUser: geodist(
+            { lat: latitude, lon: longitude },
+            { lat, lon },
+            { unit: "km" }
+          ),
+          name,
           address: {
             city,
             houseNumber: house_number ?? "n/a",
@@ -83,11 +115,21 @@ export const useDashboardEffects = (
               weekday,
             })) ?? [],
           accessibility: "",
+          maxPower,
+          minPrice,
         };
+      })
+      .sort((a, b) => {
+        return a.distanceFromUser - b.distanceFromUser;
       });
-
-    stations.push(...filteredStations);
-  }
+  }, [
+    stationsQuery.data,
+    pointsQuery.data,
+    poolQuery.data,
+    dynamicStationsQuery.data,
+    userCoordinates,
+    distance,
+  ]);
 
   return { stations };
 };
