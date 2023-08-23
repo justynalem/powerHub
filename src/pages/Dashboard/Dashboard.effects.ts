@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDynamicData, getPoints, getPool, getStations } from "../../api";
 import geodist from "geodist";
 import { Point, StationData } from "./Dashboard.types";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 type UseDashboardEffectsType = {
   distance: number;
@@ -29,6 +29,8 @@ export const useDashboardEffects = (
     queryFn: getStations,
   });
 
+  const [selectedStation, setSelectedStation] = useState<number | null>(null);
+
   const stations: StationData[] = useMemo(() => {
     if (!stationsQuery.data || !pointsQuery.data || !poolQuery.data) return [];
     return stationsQuery.data
@@ -53,6 +55,7 @@ export const useDashboardEffects = (
                 ({ point_id }) => point_id === pointID
               ) ?? {};
             return {
+              id: pointID,
               connectors: connectors.map(({ cable_attached, power }) => ({
                 cableAttached: cable_attached,
                 power,
@@ -131,5 +134,13 @@ export const useDashboardEffects = (
     distance,
   ]);
 
-  return { stations };
+  const selectedStationData = useMemo(() => {
+    if (!selectedStation) return null;
+
+    return stations.find(({ id }) => id === selectedStation) ?? null;
+  }, [stations, selectedStation]);
+
+  return { stations, selectedStationData, setSelectedStation };
 };
+
+

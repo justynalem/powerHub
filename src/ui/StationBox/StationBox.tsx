@@ -15,6 +15,7 @@ type StationBoxProps = {
   power: number | undefined;
   price: number | undefined;
   slots: number;
+  onClick: VoidFunction;
 };
 
 export const StationBox = ({
@@ -23,9 +24,10 @@ export const StationBox = ({
   slots,
   power,
   price,
+  onClick
 }: StationBoxProps) => {
   return (
-    <StyledStationBox>
+    <StyledStationBox onClick={onClick}>
       <TopStationContainer>
         <StyledStationIcon />
         <DetailsContainer>

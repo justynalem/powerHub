@@ -21,6 +21,7 @@ export interface Point {
   connectors: Connector[];
   status: Status;
   prices: Price[];
+  id: number;
 }
 
 interface Status {
