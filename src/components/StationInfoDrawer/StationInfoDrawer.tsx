@@ -8,7 +8,7 @@ import {
   TableTextInfo,
 } from "./StationInfoDrawer.styles";
 import { StationData } from "../../pages/Dashboard/Dashboard.types";
-import { DrawerHeaderText } from "../Drawer/Drawer.styles";
+import { DrawerHeaderText } from "../../ui/Drawer/Drawer.styles";
 import {
   Table,
   TableBody,
@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { StyledIconButton } from "../Icons/Icons.styles";
+import { StyledIconButton } from "../../ui/Icons/Icons.styles";
 
 type StationInfoDrawerProps = {
   isOpen: boolean;

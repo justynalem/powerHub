@@ -6,7 +6,6 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
-
 const mapStyleUrls = {
   light: "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png",
   dark: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png",
@@ -73,25 +72,27 @@ export const Map = ({ markers = [] }: MapProps) => {
   }, []);
 
   return (
-    <MapContainer center={userPosition} zoom={15}>
-      <MapController />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url={mode === "light" ? mapStyleUrls.light : mapStyleUrls.dark}
-      />
-      <Marker position={userPosition} icon={carMarker}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <MarkerClusterGroup
-        chunkedLoading
-        iconCreateFunction={createClusterCustomIcon}
-      >
-        {markers.map(({ coordinates, id }) => (
-          <Marker key={id} position={coordinates} icon={stationMarker}></Marker>
-        ))}
-      </MarkerClusterGroup>
-    </MapContainer>
+    <>
+      <MapContainer center={userPosition} zoom={15} className="map-container">
+        <MapController />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url={mode === "light" ? mapStyleUrls.light : mapStyleUrls.dark}
+        />
+        <Marker position={userPosition} icon={carMarker}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+        <MarkerClusterGroup
+          chunkedLoading
+          iconCreateFunction={createClusterCustomIcon}
+        >
+          {markers.map(({ coordinates, id }) => (
+            <Marker key={id} position={coordinates} icon={stationMarker}></Marker>
+          ))}
+        </MarkerClusterGroup>
+      </MapContainer>
+    </>
   );
 };
