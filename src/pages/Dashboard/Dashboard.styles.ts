@@ -28,3 +28,31 @@ export const SliderContainer = styled(Box)(({ theme }) => ({
     duration: theme.transitions.duration.enteringScreen,
   })
 }));
+
+export const StyledSelectContainer = styled(Box)(({ theme }) => ({
+  width: "25%",
+  height: "10%",
+  padding: "1rem",
+  backdropFilter: 'blur(10px)',
+  position: "absolute",
+  left: 0,
+  right: 0,
+  marginLeft: "auto",
+  marginRight: "auto",
+  zIndex: 402,
+  borderBottomLeftRadius: "2rem",
+  borderBottomRightRadius: "2rem",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  gap: "16px"
+
+}));
+
+export const DistanceContainer = styled(Box)({
+  width: "50%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center"
+});

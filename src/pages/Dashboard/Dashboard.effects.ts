@@ -2,19 +2,56 @@ import { useQuery } from "@tanstack/react-query";
 import { getDynamicData, getPoints, getPool, getStations } from "../../api";
 import geodist from "geodist";
 import { Point, StationData } from "./Dashboard.types";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+// import { useDebounce } from "usehooks-ts";
+import { closedDrawerWidth, drawerWidth, stationInfoDrawerWidth } from "../../theme";
 
 type UseDashboardEffectsType = {
-  distance: number;
+
   userCoordinates: [number, number];
 };
 
 export const useDashboardEffects = (
   {
-    distance = 15,
     userCoordinates = [53.1274025, 23.1853892],
   }: UseDashboardEffectsType = {} as UseDashboardEffectsType
 ) => {
+  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
+  const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
+  const [distanceToStation, setDistanceToStation] = useState<number>(10);
+  // const deboucedDistanceToStation = useDebounce<number>(
+  //   distanceToStation,
+  //   3500
+  // );
+  const onDrawerOpenChange = useCallback((isOpen: boolean) => {
+    setIsDrawerOpened(isOpen);
+  }, []);
+
+  const handleStationBoxClick = (stationId: number) => () => {
+    setSelectedStation(stationId);
+    if (!isStationInfoOpen) setIsStationInfoOpen(true);
+  };
+
+  const handleStationInfoOpen = () => {
+    setIsStationInfoOpen(false);
+  };
+
+  const handleSliderChange = (_, value: number | number[]) => {
+    setDistanceToStation(Array.isArray(value) ? value[0] : value);
+  };
+
+  const getWidthToDecrement = () => {
+    if (isDrawerOpened && !isStationInfoOpen) return drawerWidth;
+    if (isDrawerOpened && isStationInfoOpen)
+      return `${parseFloat(drawerWidth) + parseFloat(stationInfoDrawerWidth)
+        }rem`;
+  };
+
+  const getWithToDecrement2 = () => {
+    if (!isDrawerOpened && isStationInfoOpen) return stationInfoDrawerWidth;
+    if (!isDrawerOpened && !isStationInfoOpen) return closedDrawerWidth;
+  };
+
   const dynamicStationsQuery = useQuery({
     queryKey: ["stationsDynamic"],
     queryFn: getDynamicData,
@@ -39,7 +76,7 @@ export const useDashboardEffects = (
         return geodist(
           { lat: latitude, lon: longitude },
           { lat, lon },
-          { unit: "km", limit: distance }
+          { unit: "km", limit: distanceToStation }
         );
       })
       .map(({ id, pool_id, latitude, longitude, location: { city } }) => {
@@ -131,7 +168,7 @@ export const useDashboardEffects = (
     poolQuery.data,
     dynamicStationsQuery.data,
     userCoordinates,
-    distance,
+    distanceToStation,
   ]);
 
   const selectedStationData = useMemo(() => {
@@ -140,7 +177,18 @@ export const useDashboardEffects = (
     return stations.find(({ id }) => id === selectedStation) ?? null;
   }, [stations, selectedStation]);
 
-  return { stations, selectedStationData, setSelectedStation };
+  return {
+    stations,
+    selectedStationData,
+    setSelectedStation,
+    onDrawerOpenChange,
+    handleStationBoxClick,
+    handleSliderChange,
+    getWidthToDecrement,
+    getWithToDecrement2,
+    distanceToStation,
+    isDrawerOpened,
+    isStationInfoOpen,
+    handleStationInfoOpen
+  };
 };
-
-

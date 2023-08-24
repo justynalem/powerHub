@@ -1,45 +1,47 @@
-import { Map, Slider } from "../../components";
-import { Drawer, StationBox, StationInfoDrawer } from "../../ui";
-import { useCallback, useState } from "react";
-import { closedDrawerWidth, drawerWidth, stationInfoDrawerWidth } from "../../theme";
+import { Map, Swiper } from "../../components";
+import { Drawer, Slider, StationBox, StationInfoDrawer } from "../../ui";
+import {
+  closedDrawerWidth,
+  drawerWidth,
+} from "../../theme";
+import { useDashboardEffects } from "./Dashboard.effects";
 import {
   DashboardContainer,
+  DistanceContainer,
   MainContainer,
   MapContainer,
   SliderContainer,
+  StyledSelectContainer,
 } from "./Dashboard.styles";
-import { useDashboardEffects } from "./Dashboard.effects";
 
 export const Dashboard = () => {
-  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
-  const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
-  const { stations, setSelectedStation, selectedStationData } = useDashboardEffects();
+  const {
+    stations,
+    selectedStationData,
+    distanceToStation,
+    isDrawerOpened,
+    isStationInfoOpen,
+    onDrawerOpenChange,
+    handleStationBoxClick,
+    handleSliderChange,
+    getWidthToDecrement,
+    getWithToDecrement2,
+    handleStationInfoOpen
+  } = useDashboardEffects();
 
-  const onDrawerOpenChange = useCallback((isOpen: boolean) => {
-    setIsDrawerOpened(isOpen);
-  }, []);
-
-
-  const handleStationBoxClick = (stationId: number) => () => {
-    setSelectedStation(stationId);
-    if (!isStationInfoOpen) setIsStationInfoOpen(true);
-  };
-
-  const getWidthToDecrement = () => {
-    if (isDrawerOpened && !isStationInfoOpen) return drawerWidth;
-    if (isDrawerOpened && isStationInfoOpen) return `${parseFloat(drawerWidth) + parseFloat(stationInfoDrawerWidth)}rem`;
-  };
-
-  const getWithToDecrement2 = () => {
-    if (!isDrawerOpened && isStationInfoOpen) return stationInfoDrawerWidth;
-    if (!isDrawerOpened && !isStationInfoOpen) return closedDrawerWidth;
-  };
-
-  console.log(selectedStationData);
   return (
     <DashboardContainer>
+      <StyledSelectContainer>
+        <DistanceContainer>
+          <p>Distance to station</p>
+          <Slider
+            value={distanceToStation}
+            onSliderChange={handleSliderChange}
+          />
+        </DistanceContainer>
+      </StyledSelectContainer>
       <Drawer onOpenChange={onDrawerOpenChange} />
-      <MainContainer >
+      <MainContainer>
         <MapContainer>
           <Map
             markers={stations.map(({ id, coordinates }) => ({
@@ -53,12 +55,12 @@ export const Dashboard = () => {
             width: isDrawerOpened
               ? `calc(100% - ${getWidthToDecrement()})`
               : `calc(100% - ${getWithToDecrement2()})`,
-            backdropFilter: "blur(20px)",
+            backdropFilter: "blur(10px)",
             transform: isDrawerOpened
               ? `translateX(${drawerWidth})`
               : `translateX(${closedDrawerWidth})`,
           }}>
-          <Slider
+          <Swiper
             breakpoints={{
               640: {
                 slidesPerView: 2,
@@ -72,23 +74,30 @@ export const Dashboard = () => {
                 slidesPerView: 6,
                 spaceBetween: 7,
               },
-            }}>
-            {stations.map(({ id, name, distanceFromUser, points, maxPower, minPrice }) => (
-              <StationBox
-                key={id}
-                name={name}
-                distance={distanceFromUser}
-                slots={points.length}
-                power={maxPower}
-                price={minPrice}
-                onClick={handleStationBoxClick(id)}
-              />
-            ))}
-          </Slider>
+            }}
+          >
+            {stations.map(
+              ({ id, name, distanceFromUser, points, maxPower, minPrice }) => (
+                <StationBox
+                  key={id}
+                  name={name}
+                  distance={distanceFromUser}
+                  slots={points.length}
+                  power={maxPower}
+                  price={minPrice}
+                  onClick={handleStationBoxClick(id)}
+                />
+              )
+            )}
+          </Swiper>
         </SliderContainer>
       </MainContainer>
-      <StationInfoDrawer isOpen={isStationInfoOpen} onClose={() => setIsStationInfoOpen(false)} stationData={selectedStationData} />
+      <StationInfoDrawer
+        isOpen={isStationInfoOpen}
+        // isOpen={true}
+        onClose={() => handleStationInfoOpen()}
+        stationData={selectedStationData}
+      />
     </DashboardContainer>
   );
 };
-
