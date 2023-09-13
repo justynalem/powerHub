@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const DashboardContainer = styled(Box)(() => ({
@@ -29,8 +29,8 @@ export const SliderContainer = styled(Box)(({ theme }) => ({
   })
 }));
 
-export const StyledSelectContainer = styled(Box)(({ theme }) => ({
-  width: "25%",
+export const StyledSelectContainer = styled(Box)(() => ({
+  width: "15%",
   height: "10%",
   padding: "1rem",
   backdropFilter: 'blur(10px)',
@@ -50,9 +50,15 @@ export const StyledSelectContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const DistanceContainer = styled(Box)({
-  width: "50%",
+  width: "75%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  gap: "0.7rem"
 });
+
+export const StyledDistanceInfoText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.info.main,
+  fontWeight: theme.typography.fontWeightBold
+}));

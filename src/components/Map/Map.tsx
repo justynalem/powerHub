@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { useThemeContext } from "../../theme";
 import { Icon, divIcon, point } from "leaflet";
@@ -46,9 +46,12 @@ const MapController = () => {
 
   return null;
 };
+
 type Marker = {
   id: number;
   coordinates: [number, number];
+  name: string | undefined;
+  distanceFromUser: number | undefined;
 };
 
 type MapProps = {
@@ -79,20 +82,20 @@ export const Map = ({ markers = [] }: MapProps) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={mode === "light" ? mapStyleUrls.light : mapStyleUrls.dark}
         />
-        <Marker position={userPosition} icon={carMarker}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        <Marker position={userPosition} icon={carMarker} />
         <MarkerClusterGroup
           chunkedLoading
           iconCreateFunction={createClusterCustomIcon}
         >
-          {markers.map(({ coordinates, id }) => (
-            <Marker key={id} position={coordinates} icon={stationMarker}></Marker>
+          {markers.map(({ coordinates, id, name, distanceFromUser },) => (
+            <Marker key={id} position={coordinates} icon={stationMarker}>
+              <Popup >
+                {name} - {distanceFromUser}km
+              </Popup>
+            </Marker>
           ))}
         </MarkerClusterGroup>
-      </MapContainer>
+      </MapContainer >
     </>
   );
 };

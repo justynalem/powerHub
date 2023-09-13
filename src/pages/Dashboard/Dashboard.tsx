@@ -11,6 +11,7 @@ import {
   MainContainer,
   MapContainer,
   SliderContainer,
+  StyledDistanceInfoText,
   StyledSelectContainer,
 } from "./Dashboard.styles";
 
@@ -33,7 +34,9 @@ export const Dashboard = () => {
     <DashboardContainer>
       <StyledSelectContainer>
         <DistanceContainer>
-          <p>Distance to station</p>
+          <StyledDistanceInfoText>
+            Distance to station
+          </StyledDistanceInfoText>
           <Slider
             value={distanceToStation}
             onSliderChange={handleSliderChange}
@@ -44,7 +47,9 @@ export const Dashboard = () => {
       <MainContainer>
         <MapContainer>
           <Map
-            markers={stations.map(({ id, coordinates }) => ({
+            markers={stations.map(({ id, coordinates, name, distanceFromUser }) => ({
+              distanceFromUser,
+              name,
               id,
               coordinates: [coordinates.latitude, coordinates.longitude],
             }))}
@@ -71,8 +76,12 @@ export const Dashboard = () => {
                 spaceBetween: 40,
               },
               1024: {
+                slidesPerView: 4,
+                spaceBetween: 8,
+              },
+              1680: {
                 slidesPerView: 6,
-                spaceBetween: 7,
+                spaceBetween: 8,
               },
             }}
           >
@@ -94,7 +103,6 @@ export const Dashboard = () => {
       </MainContainer>
       <StationInfoDrawer
         isOpen={isStationInfoOpen}
-        // isOpen={true}
         onClose={() => handleStationInfoOpen()}
         stationData={selectedStationData}
       />

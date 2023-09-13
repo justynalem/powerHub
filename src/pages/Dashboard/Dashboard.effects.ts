@@ -2,27 +2,36 @@ import { useQuery } from "@tanstack/react-query";
 import { getDynamicData, getPoints, getPool, getStations } from "../../api";
 import geodist from "geodist";
 import { Point, StationData } from "./Dashboard.types";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 // import { useDebounce } from "usehooks-ts";
 import { closedDrawerWidth, drawerWidth, stationInfoDrawerWidth } from "../../theme";
 
-type UseDashboardEffectsType = {
+// type UseDashboardEffectsType = {
 
-  userCoordinates: [number, number];
-};
+//   // userCoordinates: [number, number];
+// };
 
-export const useDashboardEffects = (
-  {
-    userCoordinates = [53.1274025, 23.1853892],
-  }: UseDashboardEffectsType = {} as UseDashboardEffectsType
-) => {
+export const useDashboardEffects = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
   const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
   const [distanceToStation, setDistanceToStation] = useState<number>(10);
+  const [userCoordinates, setUserCoordinates] = useState<[number, number]>([0, 0]);
   // const deboucedDistanceToStation = useDebounce<number>(
   //   distanceToStation,
   //   3500
   // );
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      geoPosition => {
+        const { latitude, longitude } = geoPosition.coords;
+        setUserCoordinates([latitude, longitude]);
+      },
+      error => {
+        console.error("Error fetching position:", error);
+      }
+    );
+  }, []);
+
   const onDrawerOpenChange = useCallback((isOpen: boolean) => {
     setIsDrawerOpened(isOpen);
   }, []);
@@ -180,15 +189,15 @@ export const useDashboardEffects = (
   return {
     stations,
     selectedStationData,
+    distanceToStation,
+    isDrawerOpened,
+    isStationInfoOpen,
     setSelectedStation,
     onDrawerOpenChange,
     handleStationBoxClick,
     handleSliderChange,
     getWidthToDecrement,
     getWithToDecrement2,
-    distanceToStation,
-    isDrawerOpened,
-    isStationInfoOpen,
     handleStationInfoOpen
   };
 };
