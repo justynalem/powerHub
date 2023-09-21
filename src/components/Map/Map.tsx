@@ -12,12 +12,12 @@ const mapStyleUrls = {
 };
 
 const stationMarker = new Icon({
-  iconUrl: "../../../public/stationIcon.png",
+  iconUrl: "/stationIcon.png",
   iconSize: [45, 45],
 });
 
 const carMarker = new Icon({
-  iconUrl: "../../../public/carIcon.png",
+  iconUrl: "carIcon.png",
   iconSize: [45, 45],
 });
 
