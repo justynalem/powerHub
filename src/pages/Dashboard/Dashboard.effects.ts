@@ -1,25 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDynamicData, getPoints, getPool, getStations } from "../../api";
+//@ts-expect-error geodist does not have type definitions
 import geodist from "geodist";
 import { Point, StationData } from "./Dashboard.types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 // import { useDebounce } from "usehooks-ts";
 import { closedDrawerWidth, drawerWidth, stationInfoDrawerWidth } from "../../theme";
 
-// type UseDashboardEffectsType = {
-
-//   // userCoordinates: [number, number];
-// };
-
 export const useDashboardEffects = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
   const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
   const [distanceToStation, setDistanceToStation] = useState<number>(10);
   const [userCoordinates, setUserCoordinates] = useState<[number, number]>([0, 0]);
-  // const deboucedDistanceToStation = useDebounce<number>(
-  //   distanceToStation,
-  //   3500
-  // );
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       geoPosition => {
@@ -45,7 +38,7 @@ export const useDashboardEffects = () => {
     setIsStationInfoOpen(false);
   };
 
-  const handleSliderChange = (_, value: number | number[]) => {
+  const handleSliderChange = (_: Event, value: number | number[]) => {
     setDistanceToStation(Array.isArray(value) ? value[0] : value);
   };
 

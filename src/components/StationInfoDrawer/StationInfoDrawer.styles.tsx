@@ -47,7 +47,7 @@ export const StyledInfoStationDrawer = styled(Drawer)(({ theme, open }) => ({
   }),
 }));
 
-export const MainInfoBox = styled(Box)(({ theme }) => ({
+export const MainInfoBox = styled(Box)(() => ({
   width: "100%",
   textAlign: "center",
   padding: "1.5rem",

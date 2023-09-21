@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyledSlider } from "./Slider.styles";
 import { Box } from "@mui/material";
 
@@ -8,10 +7,8 @@ type SliderProps = {
 };
 
 export const Slider = ({ onSliderChange, value }: SliderProps) => {
-
   return (
     <Box sx={{ zIndex: 402 }}>
-
       <StyledSlider
         aria-label='Distance'
         valueLabelDisplay='on'
