@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-Check out the live demo of the app [here](power-hub.netlify.app).
+Check out the live demo of the app [here](https://power-hub.netlify.app).
 
 ## Getting Started
 
