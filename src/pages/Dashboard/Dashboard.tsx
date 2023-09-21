@@ -31,7 +31,7 @@ export const Dashboard = () => {
     <DashboardContainer>
       <StyledSelectContainer>
         <DistanceContainer>
-          <StyledDistanceInfoText>Distance to station</StyledDistanceInfoText>
+          <StyledDistanceInfoText>Distance</StyledDistanceInfoText>
           <Slider
             value={distanceToStation}
             onSliderChange={handleSliderChange}

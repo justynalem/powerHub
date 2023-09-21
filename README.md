@@ -15,7 +15,7 @@ Before you start, you need to have [Node.js](https://nodejs.org/) and [npm](http
 1. Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/justynalem/power-hub.git
+git clone https://github.com/justynalem/powerHub.git
 ```
 
 2. Install the dependencies:

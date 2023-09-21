@@ -58,6 +58,7 @@ export const DistanceContainer = styled(Box)({
 });
 
 export const StyledDistanceInfoText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.info.main,
+  color: theme.palette.info.light,
   fontWeight: theme.typography.fontWeightBold,
+  fontSize: '16px'
 }));
