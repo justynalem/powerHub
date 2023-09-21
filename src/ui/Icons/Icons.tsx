@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { StyledIconButton } from "./Icons.styles";
+import { ReactNode } from 'react';
+import { StyledIconButton } from './Icons.styles';
 
 type IconButtonProps = {
   children: ReactNode;

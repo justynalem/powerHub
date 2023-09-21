@@ -1,10 +1,10 @@
-import { List } from "@mui/material";
+import { List } from '@mui/material';
 import {
   StyledListItem,
   StyledListItemButton,
   StyledListItemText,
-} from "./Drawer.styles";
-import { DrawerListProps } from "..";
+} from './Drawer.styles';
+import { DrawerListProps } from '..';
 
 export const DrawerList = ({ open, listItems }: DrawerListProps) => {
   return (

@@ -1,4 +1,4 @@
-import { Pool } from "./types";
+import { Pool } from './types';
 
 export const getPool = async (): Promise<Pool[]> => {
   const response = await fetch(`/data/pool.json`);

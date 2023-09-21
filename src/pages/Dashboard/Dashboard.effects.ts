@@ -1,27 +1,33 @@
-import { useQuery } from "@tanstack/react-query";
-import { getDynamicData, getPoints, getPool, getStations } from "../../api";
+import { useQuery } from '@tanstack/react-query';
+import { getDynamicData, getPoints, getPool, getStations } from '../../api';
 //@ts-expect-error geodist does not have type definitions
-import geodist from "geodist";
-import { Point, StationData } from "./Dashboard.types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import geodist from 'geodist';
+import { Point, StationData } from './Dashboard.types';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 // import { useDebounce } from "usehooks-ts";
-import { closedDrawerWidth, drawerWidth, stationInfoDrawerWidth } from "../../theme";
+import {
+  closedDrawerWidth,
+  drawerWidth,
+  stationInfoDrawerWidth,
+} from '../../theme';
 
 export const useDashboardEffects = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
   const [isStationInfoOpen, setIsStationInfoOpen] = useState(false);
   const [distanceToStation, setDistanceToStation] = useState<number>(10);
-  const [userCoordinates, setUserCoordinates] = useState<[number, number]>([0, 0]);
+  const [userCoordinates, setUserCoordinates] = useState<[number, number]>([
+    0, 0,
+  ]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      geoPosition => {
+      (geoPosition) => {
         const { latitude, longitude } = geoPosition.coords;
         setUserCoordinates([latitude, longitude]);
       },
-      error => {
-        console.error("Error fetching position:", error);
-      }
+      (error) => {
+        console.error('Error fetching position:', error);
+      },
     );
   }, []);
 
@@ -45,8 +51,9 @@ export const useDashboardEffects = () => {
   const getWidthToDecrement = () => {
     if (isDrawerOpened && !isStationInfoOpen) return drawerWidth;
     if (isDrawerOpened && isStationInfoOpen)
-      return `${parseFloat(drawerWidth) + parseFloat(stationInfoDrawerWidth)
-        }rem`;
+      return `${
+        parseFloat(drawerWidth) + parseFloat(stationInfoDrawerWidth)
+      }rem`;
   };
 
   const getWithToDecrement2 = () => {
@@ -55,16 +62,16 @@ export const useDashboardEffects = () => {
   };
 
   const dynamicStationsQuery = useQuery({
-    queryKey: ["stationsDynamic"],
+    queryKey: ['stationsDynamic'],
     queryFn: getDynamicData,
     cacheTime: 15 * 60 * 1000,
     staleTime: 15 * 60 * 1000,
   });
 
-  const pointsQuery = useQuery({ queryKey: ["points"], queryFn: getPoints });
-  const poolQuery = useQuery({ queryKey: ["pool"], queryFn: getPool });
+  const pointsQuery = useQuery({ queryKey: ['points'], queryFn: getPoints });
+  const poolQuery = useQuery({ queryKey: ['pool'], queryFn: getPool });
   const stationsQuery = useQuery({
-    queryKey: ["stations"],
+    queryKey: ['stations'],
     queryFn: getStations,
   });
 
@@ -78,7 +85,7 @@ export const useDashboardEffects = () => {
         return geodist(
           { lat: latitude, lon: longitude },
           { lat, lon },
-          { unit: "km", limit: distanceToStation }
+          { unit: 'km', limit: distanceToStation },
         );
       })
       .map(({ id, pool_id, latitude, longitude, location: { city } }) => {
@@ -91,7 +98,7 @@ export const useDashboardEffects = () => {
           .map(({ connectors, id: pointID }) => {
             const { prices, status } =
               (dynamicStationsQuery.data ?? []).find(
-                ({ point_id }) => point_id === pointID
+                ({ point_id }) => point_id === pointID,
               ) ?? {};
             return {
               id: pointID,
@@ -106,7 +113,7 @@ export const useDashboardEffects = () => {
         const { maxPower, minPrice } = points.reduce(
           (acc, { connectors, prices }) => {
             const minPrice = prices.reduce((acc, { price, unit }) => {
-              if (unit !== "kWh") return acc;
+              if (unit !== 'kWh') return acc;
               if (acc === 0) {
                 return +price;
               }
@@ -114,7 +121,7 @@ export const useDashboardEffects = () => {
             }, 0);
             const maxPower = connectors.reduce(
               (acc, { power }) => (acc > power ? acc : power),
-              0
+              0,
             );
             if (acc.maxPower < maxPower) {
               acc.maxPower = maxPower;
@@ -127,21 +134,21 @@ export const useDashboardEffects = () => {
             }
             return acc;
           },
-          { maxPower: 0, minPrice: 0 }
+          { maxPower: 0, minPrice: 0 },
         );
         return {
           distanceFromUser: geodist(
             { lat: latitude, lon: longitude },
             { lat, lon },
-            { unit: "km" }
+            { unit: 'km' },
           ),
           name,
           address: {
             city,
-            houseNumber: house_number ?? "n/a",
-            houseNumberAddition: "",
-            postalCode: postal_code ?? "n/a",
-            street: street ?? "n/a",
+            houseNumber: house_number ?? 'n/a',
+            houseNumberAddition: '',
+            postalCode: postal_code ?? 'n/a',
+            street: street ?? 'n/a',
           },
 
           points,
@@ -156,7 +163,7 @@ export const useDashboardEffects = () => {
               to: to_time,
               weekday,
             })) ?? [],
-          accessibility: "",
+          accessibility: '',
           maxPower,
           minPrice,
         };
@@ -191,6 +198,6 @@ export const useDashboardEffects = () => {
     handleSliderChange,
     getWidthToDecrement,
     getWithToDecrement2,
-    handleStationInfoOpen
+    handleStationInfoOpen,
   };
 };

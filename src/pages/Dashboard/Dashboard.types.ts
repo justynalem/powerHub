@@ -53,4 +53,3 @@ export interface StationData {
   maxPower: number;
   minPrice: number;
 }
-

@@ -1,4 +1,4 @@
-import { Point } from "./types";
+import { Point } from './types';
 
 export const getPoints = async (): Promise<Point[]> => {
   const response = await fetch(`/data/point.json`);

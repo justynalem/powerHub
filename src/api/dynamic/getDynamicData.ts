@@ -1,5 +1,5 @@
-import { API_KEY } from "../../constants";
-import { DynamicData } from "./types";
+import { API_KEY } from '../../constants';
+import { DynamicData } from './types';
 
 export const getDynamicData = async (): Promise<DynamicData[]> => {
   const response = await fetch(`/api/dynamic/${API_KEY}`);

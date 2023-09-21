@@ -1,10 +1,7 @@
-import { Map, Swiper } from "../../components";
-import { Drawer, Slider, StationBox, StationInfoDrawer } from "../../ui";
-import {
-  closedDrawerWidth,
-  drawerWidth,
-} from "../../theme";
-import { useDashboardEffects } from "./Dashboard.effects";
+import { Map, Swiper } from '../../components';
+import { Drawer, Slider, StationBox, StationInfoDrawer } from '../../ui';
+import { closedDrawerWidth, drawerWidth } from '../../theme';
+import { useDashboardEffects } from './Dashboard.effects';
 import {
   DashboardContainer,
   DistanceContainer,
@@ -13,7 +10,7 @@ import {
   SliderContainer,
   StyledDistanceInfoText,
   StyledSelectContainer,
-} from "./Dashboard.styles";
+} from './Dashboard.styles';
 
 export const Dashboard = () => {
   const {
@@ -27,16 +24,14 @@ export const Dashboard = () => {
     handleSliderChange,
     getWidthToDecrement,
     getWithToDecrement2,
-    handleStationInfoOpen
+    handleStationInfoOpen,
   } = useDashboardEffects();
 
   return (
     <DashboardContainer>
       <StyledSelectContainer>
         <DistanceContainer>
-          <StyledDistanceInfoText>
-            Distance to station
-          </StyledDistanceInfoText>
+          <StyledDistanceInfoText>Distance to station</StyledDistanceInfoText>
           <Slider
             value={distanceToStation}
             onSliderChange={handleSliderChange}
@@ -47,12 +42,14 @@ export const Dashboard = () => {
       <MainContainer>
         <MapContainer>
           <Map
-            markers={stations.map(({ id, coordinates, name, distanceFromUser }) => ({
-              distanceFromUser,
-              name,
-              id,
-              coordinates: [coordinates.latitude, coordinates.longitude],
-            }))}
+            markers={stations.map(
+              ({ id, coordinates, name, distanceFromUser }) => ({
+                distanceFromUser,
+                name,
+                id,
+                coordinates: [coordinates.latitude, coordinates.longitude],
+              }),
+            )}
           />
         </MapContainer>
         <SliderContainer
@@ -60,11 +57,12 @@ export const Dashboard = () => {
             width: isDrawerOpened
               ? `calc(100% - ${getWidthToDecrement()})`
               : `calc(100% - ${getWithToDecrement2()})`,
-            backdropFilter: "blur(10px)",
+            backdropFilter: 'blur(10px)',
             transform: isDrawerOpened
               ? `translateX(${drawerWidth})`
               : `translateX(${closedDrawerWidth})`,
-          }}>
+          }}
+        >
           <Swiper
             breakpoints={{
               640: {
@@ -96,7 +94,7 @@ export const Dashboard = () => {
                   price={minPrice}
                   onClick={handleStationBoxClick(id)}
                 />
-              )
+              ),
             )}
           </Swiper>
         </SliderContainer>

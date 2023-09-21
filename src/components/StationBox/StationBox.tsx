@@ -7,7 +7,7 @@ import {
   StyledStationBox,
   StyledStationIcon,
   TopStationContainer,
-} from "./StationBox.styles.";
+} from './StationBox.styles.';
 
 type StationBoxProps = {
   name: string | undefined;
@@ -24,7 +24,7 @@ export const StationBox = ({
   slots,
   power,
   price,
-  onClick
+  onClick,
 }: StationBoxProps) => {
   return (
     <StyledStationBox onClick={onClick}>
@@ -35,8 +35,7 @@ export const StationBox = ({
           <DetailsInfo sx={{ fontSize: 32 }}>{distance} km</DetailsInfo>
         </DetailsContainer>
       </TopStationContainer>
-      <NameStationContainer title={name}>
-        {name}</NameStationContainer>
+      <NameStationContainer title={name}>{name}</NameStationContainer>
       <BottomStationContainer>
         <DetailsContainer>
           <DetailsTitle>Power</DetailsTitle>
@@ -44,7 +43,7 @@ export const StationBox = ({
         </DetailsContainer>
         <DetailsContainer>
           <DetailsTitle>price</DetailsTitle>
-          <DetailsInfo>{price === 0 ? "N/A" : `${price}`}</DetailsInfo>
+          <DetailsInfo>{price === 0 ? 'N/A' : `${price}`}</DetailsInfo>
         </DetailsContainer>
         <DetailsContainer>
           <DetailsTitle>slots</DetailsTitle>

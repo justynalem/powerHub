@@ -1,6 +1,6 @@
-import { Theme, createTheme } from "@mui/material";
-import { ReactNode, createContext } from "react";
-import { useColorTheme } from ".";
+import { Theme, createTheme } from '@mui/material';
+import { ReactNode, createContext } from 'react';
+import { useColorTheme } from '.';
 
 type ThemeContextType = {
   mode: 'light' | 'dark';
@@ -12,7 +12,7 @@ type ThemeContextProviderProps = {
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
-  mode: "light",
+  mode: 'light',
   toggleColorMode: () => null,
   theme: createTheme(),
 });
@@ -26,4 +26,3 @@ export const ThemeContextProvider = ({
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };
-

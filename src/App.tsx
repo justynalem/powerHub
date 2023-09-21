@@ -1,11 +1,10 @@
-import { useThemeContext } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Dashboard } from "./pages";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "./App.css";
+import { useThemeContext } from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Dashboard } from './pages';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import './App.css';
 
 const queryClient = new QueryClient();
-
 
 function App() {
   const { theme } = useThemeContext();

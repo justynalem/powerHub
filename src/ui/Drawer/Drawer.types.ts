@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export type StyledListProps = {
   open: boolean;
@@ -19,6 +19,5 @@ export type DrawerListProps = {
 
 export type DrawerProps = {
   navList?: DrawerListItem[];
-  onOpenChange?: (openState: boolean) => void
+  onOpenChange?: (openState: boolean) => void;
 };
-

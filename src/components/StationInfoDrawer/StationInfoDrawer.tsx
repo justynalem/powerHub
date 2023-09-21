@@ -6,9 +6,9 @@ import {
   TableText,
   TableTextBold,
   TableTextInfo,
-} from "./StationInfoDrawer.styles";
-import { StationData } from "../../pages/Dashboard/Dashboard.types";
-import { DrawerHeaderText } from "../../ui/Drawer/Drawer.styles";
+} from './StationInfoDrawer.styles';
+import { StationData } from '../../pages/Dashboard/Dashboard.types';
+import { DrawerHeaderText } from '../../ui/Drawer/Drawer.styles';
 import {
   Table,
   TableBody,
@@ -16,9 +16,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { StyledIconButton } from "../../ui/Icons/Icons.styles";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { StyledIconButton } from '../../ui/Icons/Icons.styles';
 
 type StationInfoDrawerProps = {
   isOpen: boolean;
@@ -35,20 +35,25 @@ export const StationInfoDrawer = ({
     return null;
   }
   const week = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
   ];
   const { address, points, operatingHours: hours } = stationData;
   const currentDay = new Date().getDay();
 
   return (
-    <StyledInfoStationDrawer variant='permanent' anchor='right' open={isOpen}>
-      <StyledIconButton onClick={onClose} sx={{ position: "absolute", top: "20", left: "20" }}><CloseIcon /></StyledIconButton>
+    <StyledInfoStationDrawer variant="permanent" anchor="right" open={isOpen}>
+      <StyledIconButton
+        onClick={onClose}
+        sx={{ position: 'absolute', top: '20', left: '20' }}
+      >
+        <CloseIcon />
+      </StyledIconButton>
       <MainInfoBox>
         <DrawerHeaderText>{stationData?.name}</DrawerHeaderText>
         <DrawerInfoText>
@@ -65,13 +70,14 @@ export const StationInfoDrawer = ({
         ) : null}
       </MainInfoBox>
 
-
       <TableBox>
-        <DrawerInfoText sx={{ textAlign: "center", fontWeight: "bold" }}>Points Info</DrawerInfoText>
-        <TableContainer sx={{ display: "flex", justifyContent: "center" }}>
-          <Table sx={{ width: "75%" }}>
+        <DrawerInfoText sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+          Points Info
+        </DrawerInfoText>
+        <TableContainer sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Table sx={{ width: '75%' }}>
             <TableHead>
-              <TableCell sx={{ width: "10%" }}>
+              <TableCell sx={{ width: '10%' }}>
                 <TableTextBold>no.</TableTextBold>
               </TableCell>
               <TableCell>
@@ -90,28 +96,46 @@ export const StationInfoDrawer = ({
             <TableBody>
               {points.map(({ connectors, prices, status, id }, index) => (
                 <TableRow key={id}>
-                  <TableCell><TableText>{index + 1}</TableText> </TableCell>
                   <TableCell>
-                    {connectors.length < 1
-                      ? <TableText>n/a</TableText>
-                      : connectors.map(({ power }, index) => <TableText key={index}>{power}</TableText>)}
+                    <TableText>{index + 1}</TableText>{' '}
                   </TableCell>
                   <TableCell>
-                    {prices.length < 1
-                      ? <TableText>n/a</TableText>
-                      : prices
-                        .filter(({ unit }) => unit === "kWh")
-                        .map(({ price }, index) => <TableText key={index}>{price}</TableText>)}
+                    {connectors.length < 1 ? (
+                      <TableText>n/a</TableText>
+                    ) : (
+                      connectors.map(({ power }, index) => (
+                        <TableText key={index}>{power}</TableText>
+                      ))
+                    )}
                   </TableCell>
                   <TableCell>
-                    {prices.length < 1
-                      ? <TableText>n/a</TableText>
-                      : prices
-                        .filter(({ unit }) => unit === "min")
-                        .map(({ price }, index) => <TableText key={index}>{price}</TableText>)}
+                    {prices.length < 1 ? (
+                      <TableText>n/a</TableText>
+                    ) : (
+                      prices
+                        .filter(({ unit }) => unit === 'kWh')
+                        .map(({ price }, index) => (
+                          <TableText key={index}>{price}</TableText>
+                        ))
+                    )}
                   </TableCell>
                   <TableCell>
-                    {status.status === 1 ? <TableText>Available </TableText> : <TableText>Not available </TableText>}
+                    {prices.length < 1 ? (
+                      <TableText>n/a</TableText>
+                    ) : (
+                      prices
+                        .filter(({ unit }) => unit === 'min')
+                        .map(({ price }, index) => (
+                          <TableText key={index}>{price}</TableText>
+                        ))
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {status.status === 1 ? (
+                      <TableText>Available </TableText>
+                    ) : (
+                      <TableText>Not available </TableText>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -121,8 +145,8 @@ export const StationInfoDrawer = ({
       </TableBox>
 
       <TableBox>
-        <TableContainer sx={{ display: "flex", justifyContent: "center" }}>
-          <Table sx={{ width: "75%" }}>
+        <TableContainer sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Table sx={{ width: '75%' }}>
             <TableHead>
               <TableRow>
                 <TableCell>
@@ -135,7 +159,7 @@ export const StationInfoDrawer = ({
             </TableHead>
             <TableBody>
               {hours.map(({ from, to, weekday }) => (
-                <TableRow key={weekday} sx={{ height: "15px" }}>
+                <TableRow key={weekday} sx={{ height: '15px' }}>
                   <TableCell>
                     {weekday === currentDay ? (
                       <TableTextInfo>{week[weekday - 1]} </TableTextInfo>

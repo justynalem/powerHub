@@ -9,8 +9,8 @@ export default defineConfig({
         target: 'https://eipa.udt.gov.pl/reader/export-data',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
-      }
-    }
+      },
+    },
   },
   plugins: [react()],
 });

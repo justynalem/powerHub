@@ -1,5 +1,5 @@
-import { PaletteMode, createTheme } from "@mui/material";
-import { colorVar } from "./index";
+import { PaletteMode, createTheme } from '@mui/material';
+import { colorVar } from './index';
 
 export const theme = createTheme({
   palette: {
@@ -12,14 +12,14 @@ export const theme = createTheme({
 export const getDesignTokens = (mode: PaletteMode) => ({
   typography: {
     fontSize: 16,
-    fontFamily: "Geologica",
+    fontFamily: 'Geologica',
     fontWeightLight: 100,
     fontWeightRegular: 300,
     fontWeightBold: 400,
   },
   palette: {
     mode,
-    ...(mode === "light"
+    ...(mode === 'light'
       ? {
           primary: {
             main: colorVar.mediumGreen,
