@@ -32,16 +32,14 @@ const footerList = [
   { label: "Log out", icon: <LogoutIcon /> },
 ];
 
-const MOBILE_VIEW = window.innerWidth < 468;
-
 export const Drawer = ({ navList = defaultNavList, onOpenChange }: DrawerProps) => {
-  const [isOpen, setIsOpen] = useState(!MOBILE_VIEW);
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(()=>{
-    if(onOpenChange) {
-      onOpenChange(isOpen)
+  useEffect(() => {
+    if (onOpenChange) {
+      onOpenChange(isOpen);
     }
-  }, [isOpen, onOpenChange])
+  }, [isOpen, onOpenChange]);
 
   const handleDrawerOpen = () => setIsOpen(true);
   const handleDrawerClose = () => setIsOpen(false);
@@ -57,7 +55,7 @@ export const Drawer = ({ navList = defaultNavList, onOpenChange }: DrawerProps) 
           </DrawerHeaderClosed>
           <DrawerListContainerClose>
             <DrawerList listItems={navList} open={isOpen} />
-               <Toggle/>
+            <Toggle />
             <DrawerList listItems={footerList} open={isOpen} />
           </DrawerListContainerClose>
         </>
@@ -80,7 +78,7 @@ export const Drawer = ({ navList = defaultNavList, onOpenChange }: DrawerProps) 
           </DrawerHeaderOpened>
           <DrawerListContainerOpen>
             <DrawerList listItems={navList} open={isOpen} />
-            <Toggle/>
+            <Toggle />
             <DrawerList listItems={footerList} open={isOpen} />
           </DrawerListContainerOpen>
         </>
