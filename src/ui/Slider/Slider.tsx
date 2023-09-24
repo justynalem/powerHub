@@ -4,9 +4,14 @@ import { Box } from '@mui/material';
 type SliderProps = {
   onSliderChange: (event: Event, value: number | number[]) => void;
   value: number;
+  format?: string;
 };
 
-export const Slider = ({ onSliderChange, value }: SliderProps) => {
+export const Slider = ({
+  onSliderChange,
+  value,
+  format = 'km',
+}: SliderProps) => {
   return (
     <Box sx={{ zIndex: 402 }}>
       <StyledSlider
@@ -17,7 +22,9 @@ export const Slider = ({ onSliderChange, value }: SliderProps) => {
         min={10}
         max={100}
         value={value}
+        valueLabelFormat={(value) => `${value} ${format}`}
         onChange={onSliderChange}
+        datatype="km"
       />
     </Box>
   );

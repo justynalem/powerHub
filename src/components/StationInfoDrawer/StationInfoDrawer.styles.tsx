@@ -1,48 +1,12 @@
 import { Box, Drawer, Typography } from '@mui/material';
-import { Theme, CSSObject, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InfoIcon from '@mui/icons-material/Info';
 import { stationInfoDrawerWidth } from '../../theme';
 
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: stationInfoDrawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-  backgroundColor: theme.palette.background.paper,
-  borderBottomLeftRadius: '25px',
-  borderTopLeftRadius: '25px',
-  boxSizing: 'border-box',
-  borderColor: 'transparent',
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  borderColor: 'transparent',
-  backgroundColor: theme.palette.background.paper,
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: '0px',
-  },
-});
-
-export const StyledInfoStationDrawer = styled(Drawer)(({ theme, open }) => ({
+export const StyledInfoStationDrawer = styled(Drawer)(({ theme }) => ({
   backGroundColor: theme.palette.background.default,
-  width: '500px',
+  width: stationInfoDrawerWidth,
   borderTopLeftRadius: '25px',
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
 }));
 
 export const MainInfoBox = styled(Box)(() => ({
@@ -53,7 +17,7 @@ export const MainInfoBox = styled(Box)(() => ({
 }));
 
 export const TableBox = styled(Box)({
-  padding: '1.5rem',
+  padding: '0 1.5rem',
 });
 
 export const DrawerInfoText = styled(Typography)(({ theme }) => ({

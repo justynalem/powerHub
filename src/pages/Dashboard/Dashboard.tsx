@@ -1,6 +1,5 @@
 import { Map, Swiper } from '../../components';
 import { Drawer, Slider, StationBox, StationInfoDrawer } from '../../ui';
-import { closedDrawerWidth, drawerWidth } from '../../theme';
 import { useDashboardEffects } from './Dashboard.effects';
 import {
   DashboardContainer,
@@ -17,13 +16,10 @@ export const Dashboard = () => {
     stations,
     selectedStationData,
     distanceToStation,
-    isDrawerOpened,
     isStationInfoOpen,
     onDrawerOpenChange,
     handleStationBoxClick,
     handleSliderChange,
-    getWidthToDecrement,
-    getWithToDecrement2,
     handleStationInfoOpen,
   } = useDashboardEffects();
 
@@ -48,57 +44,51 @@ export const Dashboard = () => {
                 name,
                 id,
                 coordinates: [coordinates.latitude, coordinates.longitude],
-              }),
+              })
             )}
           />
         </MapContainer>
-        <SliderContainer
-          sx={{
-            width: isDrawerOpened
-              ? `calc(100% - ${getWidthToDecrement()})`
-              : `calc(100% - ${getWithToDecrement2()})`,
-            backdropFilter: 'blur(10px)',
-            transform: isDrawerOpened
-              ? `translateX(${drawerWidth})`
-              : `translateX(${closedDrawerWidth})`,
+      </MainContainer>
+      <SliderContainer>
+        <Swiper
+          breakpoints={{
+            480: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 8,
+            },
+            1680: {
+              slidesPerView: 6,
+              spaceBetween: 8,
+            },
           }}
         >
-          <Swiper
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 5,
-                spaceBetween: 40,
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 8,
-              },
-              1680: {
-                slidesPerView: 6,
-                spaceBetween: 8,
-              },
-            }}
-          >
-            {stations.map(
-              ({ id, name, distanceFromUser, points, maxPower, minPrice }) => (
-                <StationBox
-                  key={id}
-                  name={name}
-                  distance={distanceFromUser}
-                  slots={points.length}
-                  power={maxPower}
-                  price={minPrice}
-                  onClick={handleStationBoxClick(id)}
-                />
-              ),
-            )}
-          </Swiper>
-        </SliderContainer>
-      </MainContainer>
+          {stations.map(
+            ({ id, name, distanceFromUser, points, maxPower, minPrice }) => (
+              <StationBox
+                key={id}
+                name={name}
+                distance={distanceFromUser}
+                slots={points.length}
+                power={maxPower}
+                price={minPrice}
+                onClick={handleStationBoxClick(id)}
+              />
+            )
+          )}
+        </Swiper>
+      </SliderContainer>
       <StationInfoDrawer
         isOpen={isStationInfoOpen}
         onClose={() => handleStationInfoOpen()}

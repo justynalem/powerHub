@@ -47,10 +47,10 @@ export const StationInfoDrawer = ({
   const currentDay = new Date().getDay();
 
   return (
-    <StyledInfoStationDrawer variant="permanent" anchor="right" open={isOpen}>
+    <StyledInfoStationDrawer anchor="right" open={isOpen}>
       <StyledIconButton
         onClick={onClose}
-        sx={{ position: 'absolute', top: '20', left: '20' }}
+        sx={{ position: 'absolute', top: '5px', left: '5px' }}
       >
         <CloseIcon />
       </StyledIconButton>
@@ -152,16 +152,20 @@ export const StationInfoDrawer = ({
                 <TableCell>
                   <TableTextBold>Week day</TableTextBold>
                 </TableCell>
-                <TableCell>
-                  <TableTextBold>Opening hours</TableTextBold>
-                </TableCell>
+                <TableRow />
+                <TableRow>
+                  <TableCell>
+                    <TableTextBold>Opening hours</TableTextBold>
+                  </TableCell>
+                </TableRow>
               </TableRow>
             </TableHead>
             <TableBody>
               {hours.map(({ from, to, weekday }) => (
                 <TableRow key={weekday} sx={{ height: '15px' }}>
                   <TableCell>
-                    {weekday === currentDay ? (
+                    {(currentDay === 0 && weekday === 7) ||
+                    weekday === currentDay ? (
                       <TableTextInfo>{week[weekday - 1]} </TableTextInfo>
                     ) : (
                       <TableText>{week[weekday - 1]}</TableText>

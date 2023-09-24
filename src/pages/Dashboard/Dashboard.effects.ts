@@ -4,12 +4,7 @@ import { getDynamicData, getPoints, getPool, getStations } from '../../api';
 import geodist from 'geodist';
 import { Point, StationData } from './Dashboard.types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-// import { useDebounce } from "usehooks-ts";
-import {
-  closedDrawerWidth,
-  drawerWidth,
-  stationInfoDrawerWidth,
-} from '../../theme';
+
 
 export const useDashboardEffects = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -46,19 +41,6 @@ export const useDashboardEffects = () => {
 
   const handleSliderChange = (_: Event, value: number | number[]) => {
     setDistanceToStation(Array.isArray(value) ? value[0] : value);
-  };
-
-  const getWidthToDecrement = () => {
-    if (isDrawerOpened && !isStationInfoOpen) return drawerWidth;
-    if (isDrawerOpened && isStationInfoOpen)
-      return `${
-        parseFloat(drawerWidth) + parseFloat(stationInfoDrawerWidth)
-      }rem`;
-  };
-
-  const getWithToDecrement2 = () => {
-    if (!isDrawerOpened && isStationInfoOpen) return stationInfoDrawerWidth;
-    if (!isDrawerOpened && !isStationInfoOpen) return closedDrawerWidth;
   };
 
   const dynamicStationsQuery = useQuery({
@@ -110,6 +92,7 @@ export const useDashboardEffects = () => {
               status: status ?? {},
             };
           });
+
         const { maxPower, minPrice } = points.reduce(
           (acc, { connectors, prices }) => {
             const minPrice = prices.reduce((acc, { price, unit }) => {
@@ -196,8 +179,6 @@ export const useDashboardEffects = () => {
     onDrawerOpenChange,
     handleStationBoxClick,
     handleSliderChange,
-    getWidthToDecrement,
-    getWithToDecrement2,
     handleStationInfoOpen,
   };
 };

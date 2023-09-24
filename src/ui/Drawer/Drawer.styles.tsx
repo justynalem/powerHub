@@ -36,7 +36,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
   backgroundColor: theme.palette.background.paper,
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    // width: `calc(${theme.spacing(8)} + 1px)`,
     width: closedDrawerWidth,
   },
 });
@@ -107,7 +106,7 @@ export const StyledListItem = styled(ListItem)(({ theme }) => ({
 export const StyledListItemButton = styled(ListItemButton)(
   ({ open }: StyledListProps) => ({
     justifyContent: open ? 'initial' : 'center',
-  }),
+  })
 );
 
 export const StyledListItemIcon = styled(ListItemIcon)(() => ({
@@ -118,7 +117,7 @@ export const StyledListItemText = styled(ListItemText)(
   ({ open }: StyledListProps) => ({
     display: open ? 'true' : 'none',
     marginLeft: '0.5rem',
-  }),
+  })
 );
 
 export const DrawerListContainerOpen = styled(Box)(({ theme }) => ({

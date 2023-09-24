@@ -27,35 +27,45 @@ export const SliderContainer = styled(Box)(({ theme }) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
+  width: '100%',
+  paddingLeft: '4.5rem',
+  backdropFilter: 'blur(10px)',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: "8px"
+  }
 }));
 
 export const StyledSelectContainer = styled(Box)(() => ({
-  width: '15%',
-  height: '10%',
-  padding: '1rem',
-  backdropFilter: 'blur(10px)',
+  width: '100%',
+  height: '100px',
   position: 'absolute',
   left: 0,
   right: 0,
-  marginLeft: 'auto',
-  marginRight: 'auto',
   zIndex: 402,
-  borderBottomLeftRadius: '2rem',
-  borderBottomRightRadius: '2rem',
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   gap: '16px',
 }));
 
-export const DistanceContainer = styled(Box)({
-  width: '75%',
+export const DistanceContainer = styled(Box)(({ theme }) => ({
+  backdropFilter: 'blur(10px)',
+  width: '250px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  borderRadius: '2rem',
   alignItems: 'center',
-  gap: '0.7rem',
-});
+  gap: '1rem',
+  marginRight: '1rem',
+  marginTop: '1rem',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    paddingLeft: "4.5rem",
+    marginRight: 0,
+    marginTop: 0,
+  }
+}));
 
 export const StyledDistanceInfoText = styled(Typography)(({ theme }) => ({
   color: theme.palette.info.light,
