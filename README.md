@@ -1,8 +1,16 @@
 # Power Hub
 
-## Live Demo
+## Tool & technologies I've used
 
-Check out the live demo of the app [here](https://power-hub.netlify.app).
+- React
+- TypeScript
+- ReactQuery
+- MUI
+- ReactLeaflet
+
+## Source of data
+
+All data about station are from https://eipa.udt.gov.pl/ and are limited to stations located in Poland. To test the application while outside Poland, please change the geolocation in your browser.
 
 ## Getting Started
 
@@ -43,3 +51,13 @@ npm run build
 ```
 
 This will create a `dist` directory with the compiled assets.
+
+### Screens
+
+# ![cover](public/photo1.png)
+
+# ![cover](public/photo2.png)
+
+# ![cover](public/photo3.png)
+
+# ![cover](public/photo4.png)
